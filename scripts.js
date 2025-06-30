@@ -1,11 +1,3 @@
-function create_box() {
-    ctx.moveTo(0, 0);
-    ctx.lineTo(300, 0);
-    ctx.lineTo(300, 300);
-    ctx.lineTo(0, 300);
-    ctx.lineTo(0, 0);
-    ctx.stroke();
-}
 
 function draw_snake_body(coordinates) { // call function to draw each body block for each coordinates
     ctx.fillStyle = "lightgreen";
@@ -21,14 +13,83 @@ function draw_snake() {
     }
 }
 
+function move_snake() {
+    let dx = 10;
+    let dy = 0;
+    let new_head = {x: snake[0].x + dx, y: snake[0].y + dy};
+    snake.unshift(new_head); // make new_head the beginning of snake
+    snake.pop(); // remove the last element in snake
+}
+
+function reset_canvas() {
+    ctx.fillStyle = "white";
+    ctx.strokeStyle = "black";
+    ctx.fillRect(0, 0, container.width, container.height);
+    ctx.strokeRect(0, 0, container.width, container.height);
+}
+
+function step() {
+    setTimeout(function() {
+        reset_canvas();
+        move_snake();
+        draw_snake();
+        step1();
+    }, 500);
+}
+
+function step1() {
+    setTimeout(function() {
+        reset_canvas();
+        move_snake();
+        draw_snake();
+        step2();
+    }, 500);
+}
+
+function step2() {
+    setTimeout(function() {
+        reset_canvas();
+        move_snake();
+        draw_snake();
+        step3();
+    }, 500);
+}
+
+function step3() {
+    setTimeout(function() {
+        reset_canvas();
+        move_snake();
+        draw_snake();
+        step4();
+    }, 500);
+}
+
+function step4() {
+    setTimeout(function() {
+        reset_canvas();
+        move_snake();
+        draw_snake();
+        step5();
+    }, 500);
+}
+
+function step5() {
+    setTimeout(function() {
+        reset_canvas();
+        move_snake();
+        draw_snake();
+    }, 500);
+}
+
 var container = document.getElementById("container");
 var ctx = container.getContext("2d");
-
-create_box();
 var snake = [{x: 150, y: 150},
     {x: 140, y: 150},
     {x: 130, y: 150},
     {x: 120, y: 150},
     {x: 110, y: 150}
 ];
-draw_snake()
+
+step();
+
+
