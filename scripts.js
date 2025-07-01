@@ -26,9 +26,10 @@ function reset_canvas() {
     ctx.strokeRect(0, 0, container.width, container.height);
 }
 
-function step() {
+function main() {
     setTimeout(function() {
         reset_canvas();
+        draw_food();
         move_snake();
         draw_snake();
         main();
@@ -63,9 +64,28 @@ function change_direction(event) {
         dy = 10;
     }
 }
+// func that generates random x/y values
+function generate_rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-function main() {
-    step();
+function create_food_coordinate() {
+    while (true) {
+    // create coordinate
+    foodx = generate_rand(0, container.width - 10);
+    foody = generate_rand(0, container.height - 10);
+    if (snake.some(body => body.x === foodx && body.y === foody)) { // return true if food's coordinate is the same as element's
+        continue;
+    }
+    break;
+    }
+}
+
+function draw_food() {
+    ctx.fillStyle = 'red';
+    ctx.strokestyle = 'darkred';
+    ctx.fillRect(foodx, foody, 10, 10);
+    ctx.strokeRect(foodx, foody, 10, 10);
 }
 
 // global var
@@ -79,7 +99,9 @@ var snake = [{x: 150, y: 150},
 ];
 let dx = 10;
 let dy = 0;
-
-
+let foodx;
+let foody;
+create_food_coordinate();
 main();
 document.addEventListener("keydown", change_direction);
+
