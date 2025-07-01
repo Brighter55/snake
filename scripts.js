@@ -41,16 +41,6 @@ function reset_canvas() {
     ctx.strokeRect(0, 0, container.width, container.height);
 }
 
-function main() {
-    setTimeout(function() {
-        reset_canvas();
-        draw_food();
-        move_snake();
-        draw_snake();
-        main();
-    }, 100);
-}
-
 function change_direction(event) {
     const LEFT_KEYS = [37, 65];
     const RIGHT_KEYS = [39, 68];
@@ -101,6 +91,39 @@ function draw_food() {
     ctx.strokestyle = 'darkred';
     ctx.fillRect(foodx, foody, 10, 10);
     ctx.strokeRect(foodx, foody, 10, 10);
+}
+
+function is_game_over() {
+    // check if collide
+    let did_collide;
+    for (let i = 4; i < snake.length; i++) {
+        did_collide = snake[0].x === snake[i].x && snake[0].y === snake[i].y;
+        if (did_collide) {
+            return true;
+        }
+    }
+    // check if hit wall
+    if (snake[0].x < 0 || snake[0].x > 290 || snake[0].y < 0 || snake[0].y > 290) {
+        return true;
+    }
+}
+
+function main() {
+    if (is_game_over()) {
+        document.getElementById("scores").innerHTML = "Game Over";
+        return;
+    }
+    if (scores === 899) {
+        document.getElementById("scores").innerHTML = "Congratulation, you finish the game!";
+        return;
+    }
+    setTimeout(function() {
+        reset_canvas();
+        draw_food();
+        move_snake();
+        draw_snake();
+        main();
+    }, 100);
 }
 
 // global var
