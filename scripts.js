@@ -13,10 +13,23 @@ function draw_snake() {
     }
 }
 
+// check if head is on food
+function on_food() {
+    if (snake[0].x === foodx && snake[0].y === foody) {
+        return true;
+    }
+    return false;
+}
+
 function move_snake() {
     let new_head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(new_head); // make new_head the beginning of snake
-    snake.pop(); // remove the last element in snake
+    if (on_food()) {
+        create_food_coordinate();
+    }
+    else {
+        snake.pop(); // remove the last element in snake
+    }
 }
 
 function reset_canvas() {
@@ -65,15 +78,15 @@ function change_direction(event) {
     }
 }
 // func that generates random x/y values
-function generate_rand(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function generate_rand_ten(min, max) {
+    return  Math.floor((Math.random() * (max - min + 1)) / 10) * 10;
 }
 
 function create_food_coordinate() {
     while (true) {
     // create coordinate
-    foodx = generate_rand(0, container.width - 10);
-    foody = generate_rand(0, container.height - 10);
+    foodx = generate_rand_ten(0, container.width - 10);
+    foody = generate_rand_ten(0, container.height - 10);
     if (snake.some(body => body.x === foodx && body.y === foody)) { // return true if food's coordinate is the same as element's
         continue;
     }
