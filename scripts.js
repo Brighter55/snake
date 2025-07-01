@@ -110,11 +110,15 @@ function is_game_over() {
 
 function main() {
     if (is_game_over()) {
-        document.getElementById("scores").innerHTML = "Game Over";
+        let text = document.getElementById("scores");
+        text.style.color = "red";
+        text.innerHTML = "Game Over";
         return;
     }
     if (scores === 899) {
-        document.getElementById("scores").innerHTML = "Congratulation, you finish the game!";
+        let text = document.getElementById("scores");
+        text.style.color = "green";
+        text.innerHTML = "Congratulation, you finish the game!";
         return;
     }
     setTimeout(function() {
