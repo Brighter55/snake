@@ -33,54 +33,14 @@ function step() {
         reset_canvas();
         move_snake();
         draw_snake();
-        step1();
+        steps++;
+        main();
     }, 500);
 }
 
-function step1() {
-    setTimeout(function() {
-        reset_canvas();
-        move_snake();
-        draw_snake();
-        step2();
-    }, 500);
+function main() {
+    step();
 }
-
-function step2() {
-    setTimeout(function() {
-        reset_canvas();
-        move_snake();
-        draw_snake();
-        step3();
-    }, 500);
-}
-
-function step3() {
-    setTimeout(function() {
-        reset_canvas();
-        move_snake();
-        draw_snake();
-        step4();
-    }, 500);
-}
-
-function step4() {
-    setTimeout(function() {
-        reset_canvas();
-        move_snake();
-        draw_snake();
-        step5();
-    }, 500);
-}
-
-function step5() {
-    setTimeout(function() {
-        reset_canvas();
-        move_snake();
-        draw_snake();
-    }, 500);
-}
-
 var container = document.getElementById("container");
 var ctx = container.getContext("2d");
 var snake = [{x: 150, y: 150},
@@ -89,7 +49,9 @@ var snake = [{x: 150, y: 150},
     {x: 120, y: 150},
     {x: 110, y: 150}
 ];
+let steps = 0;
 
-step();
+main();
+
 
 
