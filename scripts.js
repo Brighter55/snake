@@ -14,8 +14,6 @@ function draw_snake() {
 }
 
 function move_snake() {
-    let dx = 10;
-    let dy = 0;
     let new_head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(new_head); // make new_head the beginning of snake
     snake.pop(); // remove the last element in snake
@@ -33,14 +31,44 @@ function step() {
         reset_canvas();
         move_snake();
         draw_snake();
-        steps++;
         main();
-    }, 500);
+    }, 100);
+}
+
+function change_direction(event) {
+    const LEFT_KEYS = [37, 65];
+    const RIGHT_KEYS = [39, 68];
+    const UP_KEYS = [38, 87];
+    const DOWN_KEYS = [40, 83];
+    const GOING_UP = dy === -10;
+    const GOING_DOWN = dy === 10;
+    const GOING_RIGHT = dx === 10;
+    const GOING_LEFT = dx === -10;
+    let key_pressed = event.keyCode;
+
+    if (LEFT_KEYS.includes(key_pressed) && !GOING_RIGHT) {
+        dx = -10;
+        dy = 0;
+    }
+    else if (RIGHT_KEYS.includes(key_pressed) && !GOING_LEFT) {
+        dx = 10;
+        dy = 0;
+    }
+    else if (UP_KEYS.includes(key_pressed) && !GOING_DOWN) {
+        dx = 0;
+        dy = -10;
+    }
+    else if (DOWN_KEYS.includes(key_pressed) && !GOING_UP) {
+        dx = 0;
+        dy = 10;
+    }
 }
 
 function main() {
     step();
 }
+
+// global var
 var container = document.getElementById("container");
 var ctx = container.getContext("2d");
 var snake = [{x: 150, y: 150},
@@ -49,9 +77,9 @@ var snake = [{x: 150, y: 150},
     {x: 120, y: 150},
     {x: 110, y: 150}
 ];
-let steps = 0;
+let dx = 10;
+let dy = 0;
+
 
 main();
-
-
-
+document.addEventListener("keydown", change_direction);
