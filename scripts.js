@@ -25,6 +25,8 @@ function move_snake() {
     let new_head = {x: snake[0].x + dx, y: snake[0].y + dy};
     snake.unshift(new_head); // make new_head the beginning of snake
     if (on_food()) {
+        scores++;
+        document.getElementById("scores").innerText = `Scores: ${scores}`;
         create_food_coordinate();
     }
     else {
@@ -110,6 +112,7 @@ var snake = [{x: 150, y: 150},
     {x: 120, y: 150},
     {x: 110, y: 150}
 ];
+let scores = 0;
 let dx = 10;
 let dy = 0;
 let foodx;
